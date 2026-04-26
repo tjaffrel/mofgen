@@ -22,6 +22,8 @@ def generate_linker(
     Returns:
         Generated linkers as text.
     """
+    if not examples_file.strip():
+        raise ValueError("examples_file is required and must be a non-empty path.")
     config = LinkerGenConfig()
     agent = LinkerGenAgent(config=config, provider=provider)
 

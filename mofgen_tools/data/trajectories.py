@@ -60,7 +60,7 @@ def load_trajectory(key: str) -> RelaxTrajectory:
 def list_trajectories(limit: int | None = None) -> dict:
     """List available trajectories with summary statistics."""
     keys = _list_keys()
-    sample = keys[:limit] if limit else keys[:20]
+    sample = keys[:limit] if limit is not None else keys[:20]
     formulas = [_formula_from_key(k) for k in sample]
     return {
         "total_count": len(keys),
@@ -91,9 +91,9 @@ def search_trajectories(
             int(n) if n else 1
             for n in re.findall(r"[A-Z][a-z]?(\d*)", f)
         )
-        if min_atoms and atom_count < min_atoms:
+        if min_atoms is not None and atom_count < min_atoms:
             continue
-        if max_atoms and atom_count > max_atoms:
+        if max_atoms is not None and atom_count > max_atoms:
             continue
         results.append({
             "key": key,

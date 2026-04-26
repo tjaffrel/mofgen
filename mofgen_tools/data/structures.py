@@ -9,7 +9,7 @@ def get_structure(key: str, frame: str = "last") -> str:
     """Return a CIF string for a specific frame of a trajectory.
 
     Args:
-        key: S3 key or formula identifier.
+        key: S3 object key for the trajectory.
         frame: ``"first"``, ``"last"``, or an integer index.
 
     Returns:

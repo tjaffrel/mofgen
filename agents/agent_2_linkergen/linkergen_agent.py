@@ -56,9 +56,10 @@ class LinkerGenAgent:
 
         if provider is not None:
             if isinstance(provider, str):
+                api_key = self.config.openai_api_key if provider == "openai" else None
                 self._provider: LLMProvider | None = make_provider(
                     provider,
-                    api_key=self.config.openai_api_key,
+                    api_key=api_key,
                     temperature=self.config.temperature,
                 )
             else:

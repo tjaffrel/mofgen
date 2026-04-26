@@ -13,7 +13,7 @@ from typing import List, Dict, Any, Optional
 from dataclasses import dataclass
 from enum import Enum
 
-from agents.providers import LLMProvider, make_provider, PROVIDER_DEFAULTS
+from agents.providers import LLMProvider, make_provider
 
 
 class MOFGenerationMode(Enum):
@@ -93,9 +93,7 @@ class MOFMaster:
             )
         else:
             self._provider = provider
-        self.model = model or PROVIDER_DEFAULTS.get(
-            provider if isinstance(provider, str) else "openai", "gpt-4.1"
-        )
+        self.model = model or getattr(self._provider, "model", None) or "gpt-4.1"
         self.generation_templates = self._load_generation_templates()
     
     def _load_generation_templates(self) -> Dict[str, str]:
