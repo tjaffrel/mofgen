@@ -42,13 +42,9 @@ def group_by_metal(final_structures):
 
 def plot_formation_energies(by_comp, mp_e_forms=None, show_bins=False):
     """Create formation energy distribution plots."""
-    alpha = [1, 1, 1] + [0.8] * (len(color_palette("colorblind")) - 3)
-    _colors = [
-        f"rgba({','.join(str(f) for f in v)},{alpha[i]})"
-        for i, v in enumerate(color_palette("colorblind"))
-    ]
-    _non_alpha_colors = [
-        f"rgb({','.join(str(255 * f) for f in v)})" for v in color_palette("bright")
+    palette = [
+        f"rgb({','.join(str(int(round(255 * f))) for f in v)})"
+        for v in color_palette("bright")
     ]
 
     node_keys = sorted(
@@ -56,14 +52,12 @@ def plot_formation_energies(by_comp, mp_e_forms=None, show_bins=False):
         key=lambda k: len(by_comp.get(k, [])),
         reverse=True,
     )
-    colors = {k: _colors[i] for i, k in enumerate(node_keys)}
-    non_alpha_colors = {k: _non_alpha_colors[i] for i, k in enumerate(node_keys)}
+    non_alpha_colors = {k: palette[i] for i, k in enumerate(node_keys)}
 
     if mp_e_forms is not None:
         by_comp["Materials Project"] = mp_e_forms
         node_keys_mp = ["Zn", "Materials Project"]
-        colors["Materials Project"] = _colors[len(node_keys)]
-        non_alpha_colors["Materials Project"] = _non_alpha_colors[len(node_keys)]
+        non_alpha_colors["Materials Project"] = palette[len(node_keys)]
 
     bds = (
         min(min(v) for k, v in by_comp.items() if k != "Materials Project"),

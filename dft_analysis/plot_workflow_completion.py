@@ -39,11 +39,11 @@ def main():
         for k in ORDERED_STEPS
     ]
 
-    labels = [v[0] for v in data[:-1]]
+    labels = [v[0] for v in data[1:]]
     pctgs = [100 * v[1] / data[0][1] for v in data[1:]]
 
     colors = [
-        f"rgb({','.join(str(f) for f in v)})"
+        f"rgb({','.join(str(int(round(f * 255))) for f in v)})"
         for v in color_palette("colorblind")
     ]
 

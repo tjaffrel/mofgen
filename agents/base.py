@@ -37,7 +37,7 @@ class MOFStructure(EmberModel):
 
 class MOFGenerationRequest(EmberModel):
     """Request for MOF generation."""
-    mode: MOFGenerationMode = Field(..., description="Generation mode")
+    mode: str = Field(..., description="Generation mode (basic, metal_specific, composition_specific)")
     count: int = Field(default=1, description="Number of structures to generate")
     metal: Optional[str] = Field(None, description="Specific metal for SBU (if applicable)")
     composition: Optional[Dict[str, float]] = Field(None, description="Target composition (if applicable)")
